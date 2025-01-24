@@ -1,48 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MokeSell Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MokeSell Search</title>
 </head>
 <body>
-  <h1>MokeSell Search</h1>
-  <input type="text" id="searchInput" placeholder="Search for items..." />
-  <button onclick="search()">Search</button>
-  <h2>Categories</h2>
-  <button onclick="browseCategory('Electronics')">Electronics</button>
-  <button onclick="browseCategory('Books')">Books</button>
-  <button onclick="browseCategory('Furniture')">Furniture</button>
-  <div id="results"></div>
+    <h1>MokeSell Search</h1>
+    <input type="text" id="searchInput" placeholder="Search for items..." />
+    <button onclick="search()">Search</button>
+    <h2>Categories</h2>
+    <button onclick="browseCategory('Electronics')">Electronics</button>
+    <button onclick="browseCategory('Books')">Books</button>
+    <button onclick="browseCategory('Furniture')">Furniture</button>
+    <div id="results"></div>
 
-  <script>
-    const apiUrl = 'http://localhost:3000';
+    <script>
+        const apiUrl = 'http://localhost:3000';
 
-    async function search() {
-      const query = document.getElementById('searchInput').value;
-      const response = await fetch(`${apiUrl}/search?q=${query}`);
-      const results = await response.json();
-      displayResults(results);
-    }
+        async function search() {
+            const query = document.getElementById('searchInput').value;
+            const response = await fetch(`${apiUrl}/search?q=${query}`);
+            const results = await response.json();
+            displayResults(results);
+        }
 
-    async function browseCategory(category) {
-      const response = await fetch(`${apiUrl}/categories/${category}`);
-      const results = await response.json();
-      displayResults(results);
-    }
+        async function browseCategory(category) {
+            const response = await fetch(`${apiUrl}/categories/${category}`);
+            const results = await response.json();
+            displayResults(results);
+        }
 
-    function displayResults(results) {
-      const resultsContainer = document.getElementById('results');
-      resultsContainer.innerHTML = '';
-      results.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.textContent = `${item.name} - ${item.price} - ${item.category}`;
-        resultsContainer.appendChild(itemDiv);
-      });
-    }
-  </script>
-=======
+        function displayResults(results) {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+            results.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.textContent = `${item.name} - ${item.price} - ${item.category}`;
+            resultsContainer.appendChild(itemDiv);
+            });
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FED ASSG2</title>
@@ -147,6 +145,5 @@
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
->>>>>>> 2d0a8b3e4da333d448c32dd6c3499c5246f0c2a5
 </body>
 </html>
