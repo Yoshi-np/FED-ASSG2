@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MokeSell Search</title>
 </head>
 <body>
-    
+  <h1>MokeSell Search</h1>
+  <input type="text" id="searchInput" placeholder="Search for items..." />
+  <button onclick="search()">Search</button>
+  <h2>Categories</h2>
+  <button onclick="browseCategory('Electronics')">Electronics</button>
+  <button onclick="browseCategory('Books')">Books</button>
+  <button onclick="browseCategory('Furniture')">Furniture</button>
+  <div id="results"></div>
+
+  <script>
+    const apiUrl = 'http://localhost:3000';
+
+    async function search() {
+      const query = document.getElementById('searchInput').value;
+      const response = await fetch(`${apiUrl}/search?q=${query}`);
+      const results = await response.json();
+      displayResults(results);
+    }
+
+    async function browseCategory(category) {
+      const response = await fetch(`${apiUrl}/categories/${category}`);
+      const results = await response.json();
+      displayResults(results);
+    }
+
+    function displayResults(results) {
+      const resultsContainer = document.getElementById('results');
+      resultsContainer.innerHTML = '';
+      results.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.textContent = `${item.name} - ${item.price} - ${item.category}`;
+        resultsContainer.appendChild(itemDiv);
+      });
+    }
+  </script>
 </body>
 </html>
