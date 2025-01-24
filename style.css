@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #F2F2F2;
+    font-family: "Balsamiq Sans", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    overflow-x: hidden;
+}
+
+/* Sign-up && Log In Page*/
+.form-container {
+    display: flex;
+    width: 405px;
+    height: 450px;
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    border: 3px solid #000000;
+    padding-top: 40px;
+    margin: 100px 500px;
+    flex-direction: column;
+    align-items: center;    
+    border-radius: 10px;
+}
+.su-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -5; /* Behind all other elements */
+    overflow: hidden;
+}
+
+.su-bg video {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Ensures the video covers the entire container */
+    filter: brightness(0.9); /* Optional: Adjust brightness if the video is too intense */
+}
+.form-container-button {    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.signup {
+    margin-top: 0;
+    margin-bottom: 1.9rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--bs-heading-color);
+}
+
+.cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control {
+    width: 360px;
+
+}
+/* Adjust maximum width of the search bar */
+.navbar .form-control {
+    max-width: 85%; /* Adjust this value as needed */
+}
+
+/* Home Page*/
+
+.home-nav {
+    background-color: #fcdf80;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 33px;
+    border-bottom: 1px solid black;
+}
+
+
+.navbar .dropdown {
+    margin-right: 1rem; /* Add space to the right of the Dropdown */
+}
+.navbar .nav-link {
+    margin-right: 0.5rem; /* Add consistent spacing between nav items */
+}
+.bg-custom {
+    background-color: #FF9A34 !important; /* Ensure it overrides Bootstrap's defaults */
+}
+
