@@ -9,6 +9,21 @@ body {
     font-style: normal;
     overflow-x: hidden;
 }
+/* Navbar */
+.search-bar {
+    max-width: 600px; /* Limits the width of the search section */
+}
+
+.search-bar input {
+    flex-grow: 1; /* Makes the input field take most of the space */
+    min-width: 250px; /* Prevents the input from being too small */
+}
+
+.search-btn {
+    width: auto; /* Prevents button from stretching */
+    white-space: nowrap; /* Keeps text inside button */
+    padding: 5px 15px; /* Adjusts button size */
+}
 
 /* Sign-up && Log In Page*/
 .form-container {
@@ -100,3 +115,59 @@ body {
     background-color: #FF9A34 !important; /* Ensure it overrides Bootstrap's defaults */
 }
 
+/* FeedBack Page*/
+/* Form Container */
+.feedback-container {
+    width: 50%;
+    max-width: 500px;
+    background: transparent; /* Keeping the background clear */
+    padding: 20px;
+}
+
+/* Label Styling */
+.form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.form-group label span {
+    color: #f5a623; /* Golden color for numbering */
+    font-weight: bold;
+}
+
+/* Input Fields */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background: #333; /* Darker input background */
+    color: white;
+    border: 2px solid #f5a623; /* Golden border */
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Input Placeholder Styling */
+.form-group input::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    margin-top: 15px;
+    background: #f5a623; /* Golden background */
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #e6951c; /* Darker gold on hover */
+}
