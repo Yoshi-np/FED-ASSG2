@@ -282,13 +282,19 @@ footer {
 }
 /* Form Container */
 .feedback-container {
-    width: 50%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 1000px;
     background: transparent; /* Keeping the background clear */
-    padding: 20px;
+    padding: 50px;
+    margin: 45px auto;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Label Styling */
+.form-group {
+    margin-bottom: 20px;
+}
 .form-group label {
     display: block;
     font-size: 16px;
@@ -316,6 +322,17 @@ footer {
 .form-group input::placeholder {
     color: #bbb;
     font-style: italic;
+}
+
+.upload-image {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background: #333; /* Darker input background */
+    color: white;
+    border: 2px solid #f5a623; /* Golden border */
+    border-radius: 5px;
+    outline: none;
 }
 
 /* Submit Button */

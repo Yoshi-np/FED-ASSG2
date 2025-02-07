@@ -25,18 +25,19 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="listings.html">Listings</a></li>
                 <li><a href="sign-up.html">Sign Up</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
                 <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
             </ul>
         </nav>
     </header>
+    <h2 style="padding-left: 2%; padding-top: 2%;">Event Feedback Form</h2>
     <div class="feedback-container">
-        <h2>Event Feedback Form</h2>
         
         <form>
-            <!-- Name of Webinar -->
+            <!-- Name of Seller -->
             <div class="form-group">
-                <label for="webinar-name"><span>1.</span> Name of webinar</label>
-                <input type="text" id="webinar-name" placeholder="Enter webinar name">
+                <label for="Seller-name"><span>1.</span> Name of Seller</label>
+                <input type="text" id="seller-name" placeholder="Enter Seller name">
             </div>
 
             <!-- Speakers -->
@@ -45,20 +46,30 @@
                 <input type="text" id="speakers" placeholder="Enter speaker names">
             </div>
 
-            <!-- Previous Attendance -->
+            <!-- Previous Interactions -->
             <div class="form-group">
-                <label for="attendance"><span>3.</span> Have you attended our events or webinars before?</label>
-                <input type="text" id="attendance" placeholder="Yes / No">
+                <label for="Interactions"><span>3.</span> Have you interacted with the seller before?</label>
+                <input type="text" id="Interactions" placeholder="Yes / No">
             </div>
 
+            <!-- Image -->
+            <div class="form-group">
+                <label for="upload-image"><span>4.</span> Image of the product.</label>
+                <div class="upload-image">
+                    <label for="imageUpload">Upload an Image:</label>
+                    <input type="file" id="imageUpload" name="image" accept="image/*">
+                </div>
+            </div>
+            
             <!-- Submit Button -->
             <button type="submit">Submit Feedback</button>
+
         </form>
     </div>
     
 
     <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt-5">
+    <footer class="bg-dark text-center text-lg-start mt-5">
         <div class="container p-4">
             <p>&copy; 2023 MokeShop. All rights reserved.</p>
         </div>
