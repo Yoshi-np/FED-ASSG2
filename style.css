@@ -9,6 +9,12 @@ body {
     font-style: normal;
     overflow-x: hidden;
 }
+img {
+    width: 100%; 
+    height: auto; 
+    object-fit: contain; /* Prevents distortion */
+    max-height: 225px;
+}
 /* Navbar */
 .search-bar {
     max-width: 600px; /* Limits the width of the search section */
@@ -92,7 +98,13 @@ body {
 }
 
 /* Home Page*/
+.ads {
+    display: flex;
 
+    background: linear-gradient(to bottom, #fcdf80, #F2F2F2);
+    height: 80vh; /* Makes the gradient cover the full viewport */
+    margin: 0;
+}
 .home-nav {
     background-color: #fcdf80;
     width: 100%;
@@ -103,8 +115,9 @@ body {
     padding: 0 33px;
     border-bottom: 1px solid black;
 }
-
-
+.card {
+    height: 380px;
+}
 .navbar .dropdown {
     margin-right: 1rem; /* Add space to the right of the Dropdown */
 }
@@ -113,6 +126,60 @@ body {
 }
 .bg-custom {
     background-color: #FF9A34 !important; /* Ensure it overrides Bootstrap's defaults */
+}
+#carouselimg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.carousel-inner {
+    height: 350px; /* Increases overall carousel height */
+    display: flex;
+    align-items: center; /* Centers images vertically */
+}
+
+.carousel-item img {
+    width: 300px;
+    height: 100%; /* Adjusts image size while keeping it proportional */
+    object-fit: contain; /* Ensures image is not cropped */
+    padding: 5px 0; /* Adds spacing between top and bottom */
+}
+.adcontainer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px; /* Adds spacing between left and right sections */
+    max-width: 1200px; /* Adjust width as needed */
+    margin: auto;
+    height: 70vh; /* Maintains section height */
+}
+
+.left-image {
+    flex: 1; /* Takes half the screen width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-image img {
+    width: 100%;
+    height: auto; /* Ensures the full image is visible without cropping */
+    max-height: 100%; /* Prevents image from exceeding section height */
+    object-fit: contain; /* Maintains aspect ratio without cutting off */
+    border-radius: 10px;
+}
+
+.right-images {
+    display: flex;
+    flex-direction: column; /* Stacks the right images */
+    gap: 15px;
+    flex: 1; /* Takes half the screen */
+}
+
+.right-images img {
+    width: 100%;
+    height: auto; /* Ensures full images without cropping */
+    object-fit: cover;
+    border-radius: 70px;
 }
 
 /* FeedBack Page*/
