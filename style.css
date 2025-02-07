@@ -334,7 +334,22 @@ footer {
     border-radius: 5px;
     outline: none;
 }
+.stars {
+    display: flex;
+    gap: 5px;
+    font-size: 30px;
+    cursor: pointer;
+}
 
+.stars .star {
+    color: #ccc;
+    transition: color 0.3s;
+}
+
+.stars .star.active,
+.stars .star:hover {
+    color: #f5a623; /* Turns stars golden when selected or hovered */
+}
 /* Submit Button */
 button {
     width: 100%;

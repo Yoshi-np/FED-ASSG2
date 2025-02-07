@@ -197,3 +197,43 @@ search.addWidgets([
 ]);
 
 search.start();
+
+// Feedback stars
+document.addEventListener("DOMContentLoaded", function() {
+  const stars = document.querySelectorAll(".star");
+  const ratingInput = document.getElementById("rating-value");
+  let selectedRating = 0;
+
+  // Function to update the stars visually
+  function updateStars(rating) {
+      stars.forEach((star, index) => {
+          if (index < rating) {
+              star.classList.add("active");
+          } else {
+              star.classList.remove("active");
+          }
+      });
+  }
+
+  // Click event to set rating
+  stars.forEach(star => {
+      star.addEventListener("click", function () {
+          selectedRating = this.getAttribute("data-value");
+          ratingInput.value = selectedRating; // Store rating in hidden input
+          updateStars(selectedRating);
+      });
+  });
+
+  // Hover effect to show temporary rating
+  stars.forEach(star => {
+      star.addEventListener("mouseover", function () {
+          let hoverRating = this.getAttribute("data-value");
+          updateStars(hoverRating);
+      });
+
+      // Mouseout: Reset to the selected rating
+      star.addEventListener("mouseout", function () {
+          updateStars(selectedRating);
+      });
+  });
+});

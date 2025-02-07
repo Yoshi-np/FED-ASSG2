@@ -39,11 +39,23 @@
                 <label for="Seller-name"><span>1.</span> Name of Seller</label>
                 <input type="text" id="seller-name" placeholder="Enter Seller name">
             </div>
+            <!-- Star Rating System -->
+            <div class="form-group rating">
+                <label><span>1.1</span> Rate the Seller</label>
+                <div class="stars">
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </div>
+                <input type="hidden" id="rating-value" name="rating" value="0">
+            </div>
 
             <!-- Speakers -->
             <div class="form-group">
-                <label for="speakers"><span>2.</span> Which speakers are you excited about?</label>
-                <input type="text" id="speakers" placeholder="Enter speaker names">
+                <label for="user"><span>2.</span> Enter your username.</label>
+                <input type="text" id="user" placeholder="Enter username">
             </div>
 
             <!-- Previous Interactions -->
@@ -76,6 +88,7 @@
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
 </html>
 
