@@ -57,3 +57,35 @@ document.addEventListener("DOMContentLoaded", function () {
       document.querySelector(".product-info").innerHTML = "<h2>Product not found</h2>";
   }
 });
+
+// Listings
+document.getElementById('imageInput').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+  const previewImage = document.getElementById('previewImage');
+  const uploadText = document.getElementById('uploadText');
+  const removeButton = document.getElementById('removeImage');
+
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+          previewImage.src = e.target.result;
+          previewImage.classList.remove('hidden');
+          uploadText.classList.add('hidden');
+          removeButton.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+  }
+});
+
+function removeImage() {
+  const imageInput = document.getElementById('imageInput');
+  const previewImage = document.getElementById('previewImage');
+  const uploadText = document.getElementById('uploadText');
+  const removeButton = document.getElementById('removeImage');
+
+  imageInput.value = ''; // Reset file input
+  previewImage.src = '';
+  previewImage.classList.add('hidden');
+  uploadText.classList.remove('hidden');
+  removeButton.classList.add('hidden');
+}
