@@ -2,7 +2,12 @@
     margin: 0;
     padding: 0;
 }
-body {
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
     background: #F2F2F2;
     font-family: "Balsamiq Sans", sans-serif;
     font-weight: 500;
@@ -15,6 +20,21 @@ img {
     object-fit: contain; /* Prevents distortion */
     max-height: 225px;
 }
+/* Push footer to the bottom */
+.main-content {
+    flex: 1; /* This makes sure the content expands to fill space */
+}
+
+/* Footer styling */
+footer {
+    background: #FF9A34; /* Match theme */
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: auto; /* Pushes footer to bottom */
+    width: 100%;
+}
+
 /* Navbar */
 header {
     position: fixed;
@@ -376,13 +396,6 @@ nav ul li a {
     margin-top: 15px;
 }
 
-footer {
-    text-align: center;
-    padding: 10px;
-    background: #FF9A34;
-    color: white;
-    margin-top: 20px;
-}
 /* Form Container */
 .feedback-container {
     width: 100%;
