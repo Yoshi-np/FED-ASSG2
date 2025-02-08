@@ -146,22 +146,22 @@ img {
 }
 .adcontainer {
     display: flex;
-    justify-content: flex-start;
-    gap: 15px; /* Adds spacing between left and right sections */
-    max-width: 1200px; /* Adjust width as needed */
+    justify-content: space-between; /* Pushes right images further right */
+    gap: 15px;
+    max-width: 1200px;
     margin: auto;
-    height: 70vh; /* Maintains section height */
+    height: 70vh;
 }
-
 .left-image {
     flex: 1; /* Takes half the screen width */
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 110px;
 }
 
 .left-image img {
-    width: 100%;
+    width: 150%;
     height: auto; /* Ensures the full image is visible without cropping */
     max-height: 100%; /* Prevents image from exceeding section height */
     object-fit: contain; /* Maintains aspect ratio without cutting off */
@@ -170,9 +170,10 @@ img {
 
 .right-images {
     display: flex;
-    flex-direction: column; /* Stacks the right images */
+    flex-direction: column;
     gap: 15px;
-    flex: 1; /* Takes half the screen */
+    flex: 1;
+    margin-left: 50px; /* Adjust this value to move images further right */
 }
 
 .right-images img {
@@ -180,6 +181,36 @@ img {
     height: auto; /* Ensures full images without cropping */
     object-fit: cover;
     border-radius: 70px;
+}
+.benefit-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: 0.3s;
+    background: white;
+}
+
+.benefit-card:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-img {
+    width: 50px;  /* Adjust size as needed */
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.benefit-text h5 {
+    font-weight: bold;
+}
+
+.benefit-text p {
+    font-size: 14px;
+    color: #555;
 }
 
 /* FeedBack Page*/
