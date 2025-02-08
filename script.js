@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (productDetails) {
       document.getElementById("product-name").textContent = productDetails.name;
-      document.getElementById("product-price").textContent = productDetails.price;
+      document.getElementById("product-price").textContent = `$${productDetails.price}`;
       document.getElementById("product-image").src = productDetails.image;
       document.getElementById("product-description").textContent = productDetails.description;
   } else {
@@ -76,7 +76,7 @@ function displayListings() {
                       <img src="${listing.image}" class="card-img-top" alt="${listing.name}">
                       <div class="card-body">
                           <h5 class="card-title">${listing.name}</h5>
-                          <p class="card-text">$${listing.price}</p>
+                          <p class="card-text">${listing.price}</p>
                           <a href="details.html" class="btn btn-primary view-details" 
                               data-name="${listing.name}" 
                               data-price="${listing.price}" 
@@ -351,4 +351,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Display Cart Items if on Cart Page
   displayCartItems();
 });
+
+// Clear local storage
+/*
+if (!sessionStorage.getItem("firstLoad")) {
+    localStorage.clear();  // Clear localStorage on first load
+    sessionStorage.setItem("firstLoad", "true"); // Set session flag
+}
+*/
 
