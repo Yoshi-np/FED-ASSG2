@@ -253,47 +253,55 @@ function addToCart(product) {
 // Function to Display Cart Items in `cart.html` with Proper Layout
 function displayCartItems() {
   const cartContainer = document.getElementById("cartContainer");
+  const checkoutButtonContainer = document.getElementById("checkoutButtonContainer");
+  const totalAmountElement = document.getElementById("totalAmount");
+
   if (!cartContainer) return;
 
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   cartContainer.innerHTML = "";
 
+  let totalAmount = 0;
+
   if (cart.length === 0) {
       cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+      checkoutButtonContainer.style.display = "none"; // Hide checkout if empty
   } else {
       cart.forEach(item => {
+          totalAmount += parseFloat(item.price); // Sum up prices
+
           const cartItemHTML = `
               <div class="row align-items-center mb-3 p-3 border rounded shadow-sm">
                   <div class="col-md-2 text-center">
-                      <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" style="max-width: 220px;">
+                      <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" style="max-width: 100px;">
                   </div>
-                  <div class="col-md-8 d-flex justify-content-between align-items-center">
-                      <div>
-                          <h5 class="mb-1">${item.name}</h5>
-                          <p class="mb-1 text-muted">${item.description}</p>
-                          <p class="mb-1 text-primary"><strong>$${item.price}</strong></p>
-                      </div>
-                      <button class="btn btn-danger btn-sm remove-from-cart" 
-                              data-name="${item.name}" 
-                              style="font-size: 18px; padding: 6px 12px; max-width: 150px;">
-                          Remove
-                      </button>
+                  <div class="col-md-6">
+                      <h5 class="mb-1">${item.name}</h5>
+                      <p class="mb-1 text-muted">${item.description}</p>
+                      <p class="mb-1 text-primary"><strong>$${item.price}</strong></p>
+                  </div>
+                  <div class="col-md-4 text-end">
+                      <button class="btn btn-danger btn-sm remove-from-cart" data-name="${item.name}">Remove</button>
                   </div>
               </div>
           `;
           cartContainer.innerHTML += cartItemHTML;
       });
 
-      cartContainer.innerHTML += `
-          <div class="text-center mt-4">
-              <button class="btn btn-success btn-lg" id="checkoutButton">Proceed to Checkout</button>
-          </div>
-      `;
-
-      bindRemoveFromCartButtons();
-      bindCheckoutButton();
+      checkoutButtonContainer.style.display = "block"; // Show checkout button
   }
+
+  // Update total amount
+  totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
+
+  bindRemoveFromCartButtons();
 }
+
+// Re-run function on page load
+document.addEventListener("DOMContentLoaded", function () {
+  displayCartItems();
+});
+
 
 
 
