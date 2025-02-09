@@ -362,6 +362,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Display Cart Items if on Cart Page
   displayCartItems();
 });
+// rediretcs button "back to home" back to home
+function goHome() {
+    window.location.href = "index.html"; // Redirects to the homepage
+}
 
 // Clear local storage
 /*
