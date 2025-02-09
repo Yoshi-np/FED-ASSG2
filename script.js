@@ -573,3 +573,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    const signInLink = document.querySelector('nav ul li a[href="sign-in.html"]');
+
+    if (user && signInLink) {
+        // Change text to "Sign Out"
+        signInLink.textContent = "Sign Out";
+        signInLink.href = "#"; // Prevent navigation
+
+        // Add event listener to log out when clicked
+        signInLink.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent page reload
+            localStorage.removeItem("loggedInUser"); // Remove user data
+            alert("You have been signed out.");
+            location.reload(); // Refresh page
+        });
+    }
+});
