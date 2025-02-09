@@ -54,7 +54,6 @@
     fetchItems();
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const signUpForm = document.getElementById("signUpForm");
 
@@ -62,10 +61,12 @@ document.addEventListener("DOMContentLoaded", function () {
         signUpForm.addEventListener("submit", async function (event) {
             event.preventDefault(); // Prevent default form submission
 
+            console.log("Form Submitted!"); // Debugging log
+
             // Get input values
-            const email = document.getElementById("exampleInputEmail1").value.trim();
-            const username = document.getElementById("exampleInputUsername1").value.trim();
-            const password = document.getElementById("exampleInputPassword1").value.trim();
+            const email = document.getElementById("exampleInputEmail1")?.value.trim();
+            const username = document.getElementById("exampleInputUsername1")?.value.trim();
+            const password = document.getElementById("exampleInputPassword1")?.value.trim();
 
             // Validate fields (basic check)
             if (!email || !username || !password) {
@@ -78,15 +79,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 Email: email,
                 username: username,
                 Password: password,
-                Cart: [] // Initialize an empty cart (JSON format)
+                Cart: []
             };
 
             try {
+                console.log("Sending request...", userData); // Debugging log
+
                 // Send data to RestDB.io
                 const response = await fetch("https://fedassg2-b98f.restdb.io/rest/myuser", {
                     method: "POST",
                     headers: {
-                        "x-apikey": "your-api-key", // Replace with your actual RestDB API Key
+                        "x-apikey": "67a82110600a70a125de5be7",
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify(userData)
@@ -111,5 +114,73 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Error signing up. Please try again.");
             }
         });
+    } else {
+        console.error("SignUp Form Not Found in DOM");
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const signInForm = document.getElementById("signInForm");
+
+    if (signInForm) {
+        signInForm.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            console.log("Sign-In Form Submitted!"); // Debugging log
+
+            // Get input values
+            const email = document.getElementById("exampleInputEmail1")?.value.trim();
+            const password = document.getElementById("exampleInputPassword1")?.value.trim();
+
+            // Validate fields (basic check)
+            if (!email || !password) {
+                alert("Please enter your email and password.");
+                return;
+            }
+
+            try {
+                console.log("Checking user credentials..."); // Debugging log
+
+                // Fetch all users from RestDB.io
+                const response = await fetch("https://fedassg2-b98f.restdb.io/rest/myuser", {
+                    method: "GET",
+                    headers: {
+                        "x-apikey": "67a82110600a70a125de5be7", // Replace with your actual RestDB API Key
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error fetching users: ${response.statusText}`);
+                }
+
+                const users = await response.json();
+                console.log("Users retrieved:", users); // Debugging log
+
+                // Find user by email and check password
+                const foundUser = users.find(user => user.Email === email && user.Password === password);
+
+                if (foundUser) {
+                    console.log("Login successful! User:", foundUser);
+
+                    // Store user details in localStorage (to keep user logged in)
+                    localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
+
+                    // Redirect to homepage after login
+                    alert("Sign-in successful! Redirecting to homepage.");
+                    window.location.href = "index.html";
+                } else {
+                    alert("Invalid email or password. Please try again.");
+                }
+
+            } catch (error) {
+                console.error("Sign-in Error:", error);
+                alert("Error signing in. Please try again.");
+            }
+        });
+    } else {
+        console.error("Sign-In Form Not Found in DOM");
+    }
+});
+
