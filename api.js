@@ -40,7 +40,8 @@
                                data-name="${item.name}" 
                                data-price="${item.price}" 
                                data-image="${item.image}" 
-                               data-description="${item.description}">
+                               data-description="${item.description}"
+                               data-id="${item._id}">
                                View Details
                             </a>
                         </div>
@@ -50,7 +51,6 @@
             container.innerHTML += itemHTML;
         });
     }
-
     fetchItems();
 });
 
@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 document.addEventListener("DOMContentLoaded", function () {
+
     const signInForm = document.getElementById("signInForm");
 
     if (signInForm) {
@@ -184,3 +185,128 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// Function to Fetch Logged-in User's Cart from RestDB.io
+async function getUserCart() {
+    const API_URL = "https://fedassg2-b98f.restdb.io/rest/myuser"; 
+    const API_KEY = "67a82110600a70a125de5be7"; 
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!user) return [];
+
+    try {
+        const response = await fetch(`${API_URL}/${user._id}`, {
+            method: "GET",
+            headers: {
+                "x-apikey": API_KEY,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch cart");
+
+        const userData = await response.json();
+        return userData.cart || [];
+    } catch (error) {
+        console.error("Error fetching cart:", error);
+        return [];
+    }
+}
+
+// Function to Update User's Cart in RestDB.io
+async function updateUserCart(cart) {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!user) {
+        alert("You need to be signed in to add items to the cart.");
+        return;
+    }
+    alert(JSON.stringify(localStorage.getItem("loggedInUser")));
+    try {
+        const response = await fetch(`${API_URL}/${user._id}`, {
+            method: "PATCH",
+            headers: {
+                "x-apikey": API_KEY,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ cart }) // Updating only the cart field
+        });
+
+        if (!response.ok) throw new Error("Failed to update cart");
+
+        console.log("Cart updated in RestDB:", await response.json());
+        updateCartCount(); // Refresh cart count in UI
+
+    } catch (error) {
+        console.error("Error updating cart:", error);
+    }
+}
+
+// Function to Add Product to Cart (Triggered by Button Click)
+async function addToCart() {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!user) {
+        alert("You must be signed in to add items to the cart.");
+        return;
+    }
+
+    const productDetails = JSON.parse(localStorage.getItem("selectedProduct"));
+    if (!productDetails) {
+        alert("No product selected.");
+        return;
+    }
+
+    let cart = await getUserCart();
+
+    // Check if product already exists in cart (based on name)
+    let existingProduct = cart.find(item => item.name === productDetails.name);
+
+    if (existingProduct) {
+        alert("This item is already in the cart.");
+    } else {
+        cart.push(productDetails); // Add new item to cart array
+        await updateUserCart(cart); // Save updated cart to RestDB
+        alert("Item added to cart!");
+    }
+}
+
+// Function to Update Cart Count in Navigation Bar
+async function updateCartCount() {
+    let cart = await getUserCart();
+    const cartCountElement = document.getElementById("cart-count");
+    
+    if (cartCountElement) {
+        cartCountElement.textContent = cart.length;
+    } else {
+        console.error("Cart count element not found.");
+    }
+}
+
+
+// Attach "Add to Cart" Button Click Event in `details.html`
+window.onload = async function () {
+
+    await updateCartCount();
+
+    // Get the "Add to Cart" button using its ID
+    const addToCartButton = document.getElementById("addtocartbutton");
+    if (addToCartButton) {
+        addToCartButton.addEventListener("click", async function () {
+            await addToCart();
+        });
+    } else {
+        console.error("Add to Cart button not found.");
+    }
+
+    // Display Selected Product Details on `details.html`
+    const productDetails = JSON.parse(localStorage.getItem("selectedProduct"));
+    if (productDetails) {
+        document.getElementById("product-name").textContent = productDetails.name;
+        document.getElementById("product-price").textContent = `$${productDetails.price}`;
+        document.getElementById("product-image").src = productDetails.image;
+        document.getElementById("product-description").textContent = productDetails.description;
+    }
+
+};
+
+// Redirects button "back to home" back to home
+function goHome() {
+    window.location.href = "index.html"; // Redirects to the homepage
+}
