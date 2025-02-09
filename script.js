@@ -23,29 +23,58 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // Details
+// document.addEventListener("DOMContentLoaded", function () {
+//   const viewDetailButtons = document.querySelectorAll(".view-details");
+
+//   viewDetailButtons.forEach((button) => {
+//       button.addEventListener("click", function (event) {
+//           event.preventDefault(); // Prevent default link behavior
+
+//           // Retrieve product details from button attributes
+//           const productDetails = {
+//               name: button.getAttribute("data-name"),
+//               price: button.getAttribute("data-price"),
+//               image: button.getAttribute("data-image"),
+//               description: button.getAttribute("data-description") || "No description available."
+//           };
+
+//           // Store product details in localStorage
+//           localStorage.setItem("selectedProduct", JSON.stringify(productDetails));
+
+//           // Redirect to the product details page
+//           window.location.href = "details.html";
+//       });
+//   });
+// });
+// Wait for the page to fully load
 document.addEventListener("DOMContentLoaded", function () {
-  const viewDetailButtons = document.querySelectorAll(".view-details");
+    const container = document.getElementById("featuredItemsContainer"); // Parent container
 
-  viewDetailButtons.forEach((button) => {
-      button.addEventListener("click", function (event) {
-          event.preventDefault(); // Prevent default link behavior
+    container.addEventListener("click", function (event) {
+        const button = event.target.closest(".view-details"); // Check if a .view-details button was clicked
 
-          // Retrieve product details from button attributes
-          const productDetails = {
-              name: button.getAttribute("data-name"),
-              price: button.getAttribute("data-price"),
-              image: button.getAttribute("data-image"),
-              description: button.getAttribute("data-description") || "No description available."
-          };
+        if (button) {
+            event.preventDefault(); // Prevent default link behavior
 
-          // Store product details in localStorage
-          localStorage.setItem("selectedProduct", JSON.stringify(productDetails));
+            // Retrieve product details from button attributes
+            const productDetails = {
+                name: button.getAttribute("data-name"),
+                price: button.getAttribute("data-price"),
+                image: button.getAttribute("data-image"),
+                description: button.getAttribute("data-description") || "No description available."
+            };
 
-          // Redirect to the product details page
-          window.location.href = "details.html";
-      });
-  });
+            // Store product details in localStorage
+            localStorage.setItem("selectedProduct", JSON.stringify(productDetails));
+
+            // Redirect to the product details page
+            window.location.href = "details.html";
+        }
+    });
 });
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const productDetails = JSON.parse(localStorage.getItem("selectedProduct"));
