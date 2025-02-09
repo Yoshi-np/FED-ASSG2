@@ -368,3 +368,68 @@ if (!sessionStorage.getItem("firstLoad")) {
 }
 */
 
+// Chats
+// Sample Chat Data
+const chats = [
+    { id: 1, name: "John Doe", messages: ["Hello!", "How are you?"] },
+    { id: 2, name: "Jane Smith", messages: ["Hey!", "Are you available?"] },
+    { id: 3, name: "Customer Support", messages: ["Welcome to MokeShop!", "How can we help?"] }
+];
+
+let activeChatId = null; // Track current chat
+
+// Display Chat List
+function loadChats() {
+    const chatList = document.getElementById("chatList");
+    chatList.innerHTML = "";
+
+    chats.forEach(chat => {
+        const li = document.createElement("li");
+        li.classList.add("list-group-item");
+        li.textContent = chat.name;
+        li.onclick = () => openChat(chat.id);
+        chatList.appendChild(li);
+    });
+}
+
+// Open Chat
+function openChat(chatId) {
+    activeChatId = chatId;
+    const chat = chats.find(c => c.id === chatId);
+    document.getElementById("chatHeader").textContent = chat.name;
+    
+    const chatMessages = document.getElementById("chatMessages");
+    chatMessages.innerHTML = "";
+
+    chat.messages.forEach(msg => {
+        const div = document.createElement("div");
+        div.classList.add("chat-bubble", "received");
+        div.textContent = msg;
+        chatMessages.appendChild(div);
+    });
+}
+
+// Send Message
+function sendMessage() {
+    if (!activeChatId) return alert("Select a chat first!");
+    
+    const input = document.getElementById("messageInput");
+    const message = input.value.trim();
+    if (message === "") return;
+
+    // Add Message to UI
+    const chatMessages = document.getElementById("chatMessages");
+    const div = document.createElement("div");
+    div.classList.add("chat-bubble", "sent");
+    div.textContent = message;
+    chatMessages.appendChild(div);
+
+    // Save Message
+    const chat = chats.find(c => c.id === activeChatId);
+    chat.messages.push(message);
+
+    input.value = ""; // Clear Input
+}
+
+// Load Chats on Page Load
+document.addEventListener("DOMContentLoaded", loadChats);

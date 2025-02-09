@@ -604,3 +604,73 @@ button:hover {
         max-width: 100%;
     }
 }
+
+/* Chats */
+/* Chat List (Left Sidebar) */
+.chat-list {
+    background: #ffffff;
+    border-right: 2px solid #ddd;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.chat-list h4 {
+    margin-bottom: 20px;
+}
+
+.chat-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.chat-list .list-group-item {
+    cursor: pointer;
+    padding: 15px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-list .list-group-item:hover {
+    background: #f1f1f1;
+}
+
+/* Chat Window (Right Side) */
+.chat-window {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    height: 75vh;
+}
+
+/* Chat Bubbles */
+.chat-bubble {
+    max-width: 75%;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.sent {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+}
+
+.received {
+    background-color: #e0e0e0;
+    color: black;
+}
+
+/* Chat Input */
+.chat-input {
+    display: flex;
+    flex-direction: column;
+}
