@@ -1,23 +1,26 @@
 // Search Bar 
 
 document.addEventListener("DOMContentLoaded", function () {
-  const searchInput = document.getElementById("search");
-  const productCards = document.querySelectorAll(".col-md-3");
+    const searchInput = document.getElementById("search");
 
-  searchInput.addEventListener("keyup", function () {
-      let filter = searchInput.value.toLowerCase().trim();
+    searchInput.addEventListener("keyup", function () {
+        let filter = searchInput.value.toLowerCase().trim();
 
-      productCards.forEach((card) => {
-          let productName = card.querySelector(".card-title").innerText.toLowerCase();
+        // Get all product cards, including dynamically loaded ones
+        const productCards = document.querySelectorAll(".card");
 
-          if (productName.includes(filter)) {
-              card.style.display = "block"; // Show matching products
-          } else {
-              card.style.display = "none"; // Hide non-matching products
-          }
-      });
-  });
+        productCards.forEach((card) => {
+            let productName = card.querySelector(".card-title").innerText.toLowerCase();
+
+            if (productName.includes(filter)) {
+                card.parentElement.style.display = "block"; // Show matching products
+            } else {
+                card.parentElement.style.display = "none"; // Hide non-matching products
+            }
+        });
+    });
 });
+
 
 // Details
 document.addEventListener("DOMContentLoaded", function () {
@@ -491,5 +494,49 @@ document.addEventListener("DOMContentLoaded", function () {
     const username = localStorage.getItem("username");
     if (username) {
         document.getElementById("welcomeUser").innerText = `Welcome, ${username}!`;
+    }
+});
+
+// minor changes perchance
+document.addEventListener("DOMContentLoaded", function () {
+    // Retrieve and display the username in the navbar
+    const username = localStorage.getItem("username");
+    if (username) {
+        document.getElementById("welcomeUser").innerText = `Welcome, ${username}!`;
+    }
+});
+
+// Ensure cart count updates across pages
+document.addEventListener("DOMContentLoaded", function () {
+    updateCartCount();
+});
+
+// Attach event listener to checkout button
+document.addEventListener("DOMContentLoaded", function () {
+    const checkoutButton = document.getElementById("checkoutButton");
+    if (checkoutButton) {
+        checkoutButton.addEventListener("click", function () {
+            const username = localStorage.getItem("username");
+
+            if (!username) {
+                alert("Please sign in before proceeding to checkout.");
+                window.location.href = "sign-in.html";
+            } else {
+                window.location.href = "checkout.html";
+            }
+        });
+    }
+});
+
+// Function to clear cart after successful checkout
+document.addEventListener("DOMContentLoaded", function () {
+    const confirmCheckoutButton = document.querySelector(".btn-primary.btn-sm");
+    if (confirmCheckoutButton) {
+        confirmCheckoutButton.addEventListener("click", function () {
+            alert("Thank you for your purchase! Your order has been placed.");
+            localStorage.removeItem("cart"); // Clear the cart
+            updateCartCount();
+            window.location.href = "index.html"; // Redirect back to home
+        });
     }
 });

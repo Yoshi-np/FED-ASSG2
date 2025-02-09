@@ -31,7 +31,29 @@
             </ul>
         </nav>
     </header>
-    
+    <div class="main-content" style="margin-top: 80px;">
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Checkout</h2>
+            <div class="card p-4 shadow" style="max-width: 500px; margin: auto;">
+                <form id="checkout-form">
+                    <div class="mb-3">
+                        <label class="form-label">Select Payment Method:</label>
+                        <select class="form-select" id="payment-method">
+                            <option value="credit-card">Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="cash-on-delivery">Cash on Delivery</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Buttons aligned at the bottom -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="goHome()">Back to Home</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="confirmCheckout()">Confirm Checkout</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>  
     <!-- Footer -->
     <footer class="bg-dark text-center text-lg-start mt-5">
         <div class="container p-4">
