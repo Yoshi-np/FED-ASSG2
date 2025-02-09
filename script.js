@@ -371,9 +371,10 @@ if (!sessionStorage.getItem("firstLoad")) {
 // Chats
 // Sample Chat Data
 const chats = [
-    { id: 1, name: "John Doe", messages: ["Hello!", "How are you?"] },
-    { id: 2, name: "Jane Smith", messages: ["Hey!", "Are you available?"] },
-    { id: 3, name: "Customer Support", messages: ["Welcome to MokeShop!", "How can we help?"] }
+    { id: 1, name: "Customer Support", messages: ["Welcome to MokeShop!", "How can we be of assistance today?"] },
+    { id: 2, name: "John Doe", messages: ["Hello!", "Is this for sale?"] },
+    { id: 3, name: "Jane Smith", messages: ["Hey!", "Is the product still available?"] },
+    { id: 4, name: "Yoshihiro", messages: ["The price is fixed", "$1 for the slavs"] }
 ];
 
 let activeChatId = null; // Track current chat
