@@ -433,3 +433,62 @@ function sendMessage() {
 
 // Load Chats on Page Load
 document.addEventListener("DOMContentLoaded", loadChats);
+
+// Sign in and Sign up
+document.addEventListener("DOMContentLoaded", function () {
+    // Sign Up Form Handling
+    const signUpForm = document.querySelector("#signUpForm");
+    if (signUpForm) {
+        signUpForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form behavior
+
+            // Get user input values
+            const email = document.querySelector("#exampleInputEmail1").value;
+            const username = document.querySelector("#exampleInputUsername1").value;
+            const password = document.querySelector("#exampleInputPassword1").value;
+
+            if (email && username && password) {
+                // Store user data in localStorage
+                localStorage.setItem("userEmail", email);
+                localStorage.setItem("username", username);
+                localStorage.setItem("userPassword", password);
+
+                alert("Sign Up successful! Redirecting to Home Page.");
+                signUpForm.submit(); // Allow the form to actually submit
+                window.location.href = "index.html"; // Redirect to Home
+            } else {
+                alert("Please fill in all fields.");
+            }
+        });
+    }
+
+    // Sign In Form Handling
+    const signInForm = document.querySelector("#signInForm");
+    if (signInForm) {
+        signInForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form behavior
+
+            // Get user input values
+            const email = document.querySelector("#exampleInputEmail1").value;
+            const password = document.querySelector("#exampleInputPassword1").value;
+
+            // Retrieve stored credentials
+            const storedEmail = localStorage.getItem("userEmail");
+            const storedPassword = localStorage.getItem("userPassword");
+
+            if (email === storedEmail && password === storedPassword) {
+                alert("Sign In successful! Redirecting to Home Page.");
+                signInForm.submit(); // Allow the form to actually submit
+                window.location.href = "index.html"; // Redirect to Home
+            } else {
+                alert("Invalid email or password. Please try again.");
+            }
+        });
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const username = localStorage.getItem("username");
+    if (username) {
+        document.getElementById("welcomeUser").innerText = `Welcome, ${username}!`;
+    }
+});
