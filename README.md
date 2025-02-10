@@ -1,76 +1,119 @@
-# FED-ASSG2
-# Your Project's Name
+FED-ASSG2
 
-One or two paragraphs providing an overview of your project. Tell us about your project.
+Project Overview
 
-Essentially, this part is your sales pitch.
- 
-## Design Process
- 
-Provide us insights about your design process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
+This project is a fully functional e-commerce website that allows users to browse, list, and purchase items. The platform is designed for a seamless user experience, ensuring easy navigation, secure authentication, and efficient transactions.
 
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
-- As a user type, I want to perform an action, so that I can achieve a goal.
+The primary goal is to provide a marketplace where users can create listings, view product details, add items to their cart, and complete purchases using an intuitive interface.
 
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. 
-These files should themselves either be included as a pdf file in the project itself (in an separate directory)
-Include the Adobe XD wireframe as a folder. You can include the XD share url. 
+Design Process
 
-## Features
+This website is designed for users who want an efficient and user-friendly online marketplace. The key objectives are:
 
-In this section, you should go over the different parts of your project, and describe each in a sentence or so.
- 
-### Existing Features
-- Feature 1 - allows users X to achieve Y, by having them fill out Z
-- ...
+Allow users to sign up and create listings for their products.
 
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
+Provide a visually appealing and interactive browsing experience.
 
-### Features Left to Implement
-- Another feature idea
+Ensure smooth cart and checkout functionalities.
 
-## Technologies Used
+Collect user feedback for future improvements.
 
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
+User Stories:
 
-- [JQuery](https://jquery.com)
-    - The project uses **JQuery** to simplify DOM manipulation.
+As a user, I want to create an account, so that I can list and purchase items.
+
+As a seller, I want to list products with descriptions and images, so that buyers can view and purchase them.
+
+As a buyer, I want to add items to my cart, so that I can review them before making a purchase.
+
+As a buyer, I want to proceed through checkout securely, so that my transactions are safe.
+
+As a user, I want to leave feedback, so that the platform can improve its service.
+
+Wireframes & Mockups
+
+figma link: https://www.figma.com/design/tGmm0Hh94njPkDv8G9J87c/FED-checkpoint-prototype?node-id=0-1&t=FiIy3JASnVrDLaGL-1
+
+Features
+
+Existing Features
+
+User Authentication – Allows users to sign up, sign in, and manage their accounts securely.
+
+Product Listings – Users can browse products with descriptions and images.
+
+Product Details – Detailed pages for each item with pricing and specifications.
+
+Shopping Cart – Users can add, remove, and review items in their cart.
+
+Checkout Process – Secure checkout functionality for a smooth transaction.
+
+Feedback System – Allows users to submit feedback to improve the platform.
 
 
-## Assistive AI
 
-In this section you should document the process of using AI tools eg, ChatGPT, Gemini etc to help you with the development of features/functionalities of your web application. (Failure to document your use of AI tools will result in loss of marks.) Example below:
+Technologies Used
 
-1. Spotify API:
-ChatGPT was used to help with the implementation of the Spotify API (include screenshots of generated AI codes.)
+HTML5 – Structure and layout of the website.
+
+CSS3 – Styling for a modern and responsive design.
+
+JavaScript – Provides interactivity and dynamic content.
+
+JQuery – Simplifies DOM manipulation. (JQuery)
+
+Figma – Used for wireframing and prototyping.
+
+Assistive AI
+
+AI tools were used in various parts of development:
+
+ChatGPT was used to assist in the debugging of the code
+
+Testing
+
+The website has been manually tested across different scenarios:
+
+Sign-Up & Login Testing
+
+Attempt to register with an invalid email.
+
+Attempt to log in with incorrect credentials.
+
+Verify successful login and logout functionality.
+
+Product Listing & Viewing
+
+Ensure that all product listings appear correctly.
+
+Verify that clicking a product opens the correct details page.
+
+Shopping Cart Functionality
+
+Add items to the cart and ensure correct item count.
+
+Remove items and check if the total updates correctly.
+
+Checkout Process
+
+Attempt to proceed to checkout with an empty cart.
+
+Complete checkout with valid details.
+
+Responsive Design Testing
+
+Ensure proper display on mobile, tablet, and desktop screens.
+
+Check compatibility across Chrome, Firefox, and Edge.
+
+Credits
 
 
-![sample img](readme_img/sample.JPG)
+Media
 
-## Testing
+Images used are sourced from royalty-free platforms.
 
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
+Acknowledgements
 
-1. Contact form:
-    1. Go to the "Contact Us" page
-    2. Try to submit the empty form and verify that an error message about the required fields appears
-    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-    4. Try to submit the form with all inputs valid and verify that a success message appears.
+Inspired by modern e-commerce platforms such as Amazon and shoppee
 
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
-
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
-
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
-
-## Credits
-
-### Content
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
-
-### Media
-- The photos used in this site were obtained from ...
-
-### Acknowledgements
-
-- I received inspiration for this project from X
