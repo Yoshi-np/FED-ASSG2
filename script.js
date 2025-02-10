@@ -264,63 +264,63 @@ document.getElementById('removeImage').classList.add('hidden');
 // });
 // SUBMIT NEW LISTING AND SAVE TO DATABASE
 // SUBMIT NEW LISTING AND SAVE TO DATABASE
-document.getElementById("listingForm")?.addEventListener("submit", async function(event) {
-    event.preventDefault(); // Prevent page reload
+// document.getElementById("listingForm")?.addEventListener("submit", async function(event) {
+//     event.preventDefault(); // Prevent page reload
 
-    // Get user inputs
-    const name = document.getElementById("productName").value.trim();
-    const price = parseFloat(document.getElementById("productPrice").value.trim()); // Convert price to number
-    const description = document.getElementById("productDescription").value.trim();
-    const imageInput = document.getElementById("imageInput").files[0]; // Get file from input
+//     // Get user inputs
+//     const name = document.getElementById("productName").value.trim();
+//     const price = parseFloat(document.getElementById("productPrice").value.trim()); // Convert price to number
+//     const description = document.getElementById("productDescription").value.trim();
+//     const imageInput = document.getElementById("imageInput").files[0]; // Get file from input
 
-    // Validate inputs
-    if (!name || !price || !description || !imageInput) {
-        alert("Please fill in all fields and upload an image.");
-        return;
-    }
+//     // Validate inputs
+//     if (!name || !price || !description || !imageInput) {
+//         alert("Please fill in all fields and upload an image.");
+//         return;
+//     }
 
-    // Generate correct image path (assume images are stored in '/images/' folder)
-    const imagePath = `./images/${imageInput.name}`;
+//     // Generate correct image path (assume images are stored in '/images/' folder)
+//     const imagePath = `./images/${imageInput.name}`;
 
-    // Create a new product object
-    const newListing = {
-        name: name,
-        price: price,
-        description: description,
-        image: imagePath // Store correct image path
-    };
+//     // Create a new product object
+//     const newListing = {
+//         name: name,
+//         price: price,
+//         description: description,
+//         image: imagePath // Store correct image path
+//     };
 
-    try {
-        // Send new listing to RestDB
-        const response = await fetch("https://fedassg2-b98f.restdb.io/rest/items", {
-            method: "POST",
-            headers: {
-                "x-apikey": "67a82110600a70a125de5be7", // Your API Key
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newListing)
-        });
+//     try {
+//         // Send new listing to RestDB
+//         const response = await fetch("https://fedassg2-b98f.restdb.io/rest/items", {
+//             method: "POST",
+//             headers: {
+//                 "x-apikey": "67a82110600a70a125de5be7", // Your API Key
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify(newListing)
+//         });
 
-        if (!response.ok) {
-            throw new Error(`Failed to save listing: ${response.statusText}`);
-        }
+//         if (!response.ok) {
+//             throw new Error(`Failed to save listing: ${response.statusText}`);
+//         }
 
-        const result = await response.json();
-        console.log("Listing added:", result);
+//         const result = await response.json();
+//         console.log("Listing added:", result);
 
-        // Show success message
-        alert("Successfully Added Listing!");
+//         // Show success message
+//         alert("Successfully Added Listing!");
 
-        // Redirect to index page after a short delay
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 500);
+//         // Redirect to index page after a short delay
+//         setTimeout(() => {
+//             window.location.href = "index.html";
+//         }, 500);
 
-    } catch (error) {
-        console.error("Error saving listing:", error);
-        alert("Error saving listing. Please try again.");
-    }
-});
+//     } catch (error) {
+//         console.error("Error saving listing:", error);
+//         alert("Error saving listing. Please try again.");
+//     }
+// });
 
 
 
@@ -350,54 +350,54 @@ document.addEventListener("DOMContentLoaded", function () {
 // }
 
 // Function to Display Cart Items in `cart.html` with Proper Layout
-async function displayCartItems() {
-  const cartContainer = document.getElementById("cartContainer");
-  const checkoutButtonContainer = document.getElementById("checkoutButtonContainer");
-  const totalAmountElement = document.getElementById("totalAmount");
+// async function displayCartItems() {
+//   const cartContainer = document.getElementById("cartContainer");
+//   const checkoutButtonContainer = document.getElementById("checkoutButtonContainer");
+//   const totalAmountElement = document.getElementById("totalAmount");
 
-  if (!cartContainer) return;
+//   if (!cartContainer) return;
 
-  let cart = await getUserCart();
+//   let cart = await getUserCart();
 
 
-//   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cartContainer.innerHTML = "";
+// //   const cart = JSON.parse(localStorage.getItem("cart")) || [];
+//   cartContainer.innerHTML = "";
 
-  let totalAmount = 0;
+//   let totalAmount = 0;
 
-  if (cart.length === 0) {
-      cartContainer.innerHTML = "<p>Your cart is empty.</p>";
-      checkoutButtonContainer.style.display = "none"; // Hide checkout if empty
-  } else {
-      cart.forEach(item => {
-          totalAmount += parseFloat(item.price); // Sum up prices
+//   if (cart.length === 0) {
+//       cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+//       checkoutButtonContainer.style.display = "none"; // Hide checkout if empty
+//   } else {
+//       cart.forEach(item => {
+//           totalAmount += parseFloat(item.price); // Sum up prices
 
-          const cartItemHTML = `
-              <div class="row align-items-center mb-3 p-3 border rounded shadow-sm">
-                  <div class="col-md-2 text-center">
-                      <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" style="max-width: 200px;">
-                  </div>
-                  <div class="col-md-6">
-                      <h5 class="mb-1">${item.name}</h5>
-                      <p class="mb-1 text-muted">${item.description}</p>
-                      <p class="mb-1 text-primary"><strong>$${item.price}</strong></p>
-                  </div>
-                  <div class="col-md-4 text-end">
-                      <button class="btn btn-danger btn-sm remove-from-cart" data-id="${item.id}">Remove</button>
-                  </div>
-              </div>
-          `;
-          cartContainer.innerHTML += cartItemHTML;
-      });
+//           const cartItemHTML = `
+//               <div class="row align-items-center mb-3 p-3 border rounded shadow-sm">
+//                   <div class="col-md-2 text-center">
+//                       <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" style="max-width: 200px;">
+//                   </div>
+//                   <div class="col-md-6">
+//                       <h5 class="mb-1">${item.name}</h5>
+//                       <p class="mb-1 text-muted">${item.description}</p>
+//                       <p class="mb-1 text-primary"><strong>$${item.price}</strong></p>
+//                   </div>
+//                   <div class="col-md-4 text-end">
+//                       <button class="btn btn-danger btn-sm remove-from-cart" data-id="${item.id}">Remove</button>
+//                   </div>
+//               </div>
+//           `;
+//           cartContainer.innerHTML += cartItemHTML;
+//       });
 
-      checkoutButtonContainer.style.display = "block"; // Show checkout button
-  }
+//       checkoutButtonContainer.style.display = "block"; // Show checkout button
+//   }
 
-  // Update total amount
-  totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
+//   // Update total amount
+//   totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
 
-  bindRemoveFromCartButtons();
-}
+//   bindRemoveFromCartButtons();
+// }
 
 // Re-run function on page load
 document.addEventListener("DOMContentLoaded", function () {
@@ -407,26 +407,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-// Function to Remove Item from Cart
-function bindRemoveFromCartButtons() {
-  document.querySelectorAll(".remove-from-cart").forEach(button => {
-      button.addEventListener("click", async function () {
-        //   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        let cart = await getUserCart();
-        const productid = this.getAttribute("data-id");
+// // Function to Remove Item from Cart
+// function bindRemoveFromCartButtons() {
+//   document.querySelectorAll(".remove-from-cart").forEach(button => {
+//       button.addEventListener("click", async function () {
+//         //   let cart = JSON.parse(localStorage.getItem("cart")) || [];
+//         let cart = await getUserCart();
+//         const productid = this.getAttribute("data-id");
 
-        // Remove the item from cart
-        cart = cart.filter(item => item.id !== productid);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        updateUserCart(cart);
+//         // Remove the item from cart
+//         cart = cart.filter(item => item.id !== productid);
+//         localStorage.setItem("cart", JSON.stringify(cart));
+//         updateUserCart(cart);
 
 
-        alert("Item removed from cart.");
-        displayCartItems();
-        updateCartCount();
-      });
-  });
-}
+//         alert("Item removed from cart.");
+//         displayCartItems();
+//         updateCartCount();
+//       });
+//   });
+// }
 
 // Function to Handle Checkout and Redirect to `checkout.html`
 function bindCheckoutButton() {
@@ -654,40 +654,40 @@ document.addEventListener("DOMContentLoaded", function () {
 //     }
 // });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const confirmCheckoutButton = document.querySelector(".btn-primary.btn-sm");
+// document.addEventListener("DOMContentLoaded", function () {
+//     const confirmCheckoutButton = document.querySelector(".btn-primary.btn-sm");
     
-    if (confirmCheckoutButton) {
-        confirmCheckoutButton.addEventListener("click", async function () {
-            alert("Thank you for your purchase! Your order has been placed.");
+//     if (confirmCheckoutButton) {
+//         confirmCheckoutButton.addEventListener("click", async function () {
+//             alert("Thank you for your purchase! Your order has been placed.");
             
-            let cart = await getUserCart(); // Fetch the current cart
-            let purchases = [...cart]; // Copy current cart items
+//             let cart = await getUserCart(); // Fetch the current cart
+//             let purchases = [...cart]; // Copy current cart items
 
-            if (purchases.length === 0) {
-                alert("Your cart is empty. Add items before checkout.");
-                return;
-            }
+//             if (purchases.length === 0) {
+//                 alert("Your cart is empty. Add items before checkout.");
+//                 return;
+//             }
 
-            // Save purchase history before clearing cart
-            await updatePurchaseHistory(purchases);
+//             // Save purchase history before clearing cart
+//             await updatePurchaseHistory(purchases);
 
-            // Clear cart from database
-            await updateUserCart([]); // Set cart to empty array in RestDB
+//             // Clear cart from database
+//             await updateUserCart([]); // Set cart to empty array in RestDB
 
-            // Clear localStorage cart
-            localStorage.removeItem("cart");
+//             // Clear localStorage cart
+//             localStorage.removeItem("cart");
 
-            alert("Your cart has been cleared!");
-            updateCartCount(); // Update UI Cart Count
+//             alert("Your cart has been cleared!");
+//             updateCartCount(); // Update UI Cart Count
 
-            // Redirect back to home AFTER database update
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1000);
-        });
-    }
-});
+//             // Redirect back to home AFTER database update
+//             setTimeout(() => {
+//                 window.location.href = "index.html";
+//             }, 1000);
+//         });
+//     }
+// });
 
 
 
