@@ -208,6 +208,42 @@ function bindCheckoutButton() {
   }
 }
 
+// Function to confirm checkout and show animation
+function confirmCheckout() {
+    console.log("Checkout initiated..."); // Debugging log
+
+    // Hide checkout form
+    const checkoutContainer = document.querySelector(".card.p-4.shadow");
+    if (checkoutContainer) {
+        checkoutContainer.style.display = "none";
+    }
+
+    // Show success animation container
+    const animationContainer = document.getElementById("success-animation-container");
+    animationContainer.style.display = "block";
+
+    // Load Lottie animation dynamically
+    const lottieContainer = document.getElementById("lottie-animation");
+    lottieContainer.innerHTML = ""; // Clear existing animation (prevents duplication)
+
+    lottie.loadAnimation({
+        container: lottieContainer, // Div container
+        renderer: "svg",
+        loop: false, // Play once
+        autoplay: true,
+        path: "https://lottie.host/5018eabf-6fd3-42e2-943d-6186d5e3e9e5/FK2vRQSoHC.json" // ✅ Valid Lottie JSON URL
+    });
+
+    // Clear cart
+    localStorage.removeItem("cart");
+    updateCartCount();
+
+    // Redirect to home after animation completes
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 4000); // Redirect after 4 seconds
+}
+
 
 // Chats
 // Sample Chat Data
@@ -339,29 +375,16 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function to confirm checkout and show animation
 function confirmCheckout() {
     // Hide checkout form
-    const checkoutContainer = document.querySelector(".card.p-4.shadow");
-    if (checkoutContainer) {
-        checkoutContainer.style.display = "none";
-    }
-
-    // Show success animation container
-    const animationContainer = document.getElementById("success-animation-container");
-    animationContainer.style.display = "block";
-
-    // Load Lottie animation dynamically
-    lottie.loadAnimation({
-        container: document.getElementById("lottie-animation"), // Div container
-        renderer: "svg",
-        loop: false, // Play once
-        autoplay: true,
-        path: "https://assets7.lottiefiles.com/packages/lf20_vg3c0wv4.json" // ✅ Replace with your Lottie JSON URL
-    });
-
+    document.getElementById("checkout-container").style.display = "none";
+    
+    // Show success animation
+    document.getElementById("success-animation-container").style.display = "block";
+    
     // Clear cart
     localStorage.removeItem("cart");
     updateCartCount();
-
-    // Redirect to home after 3 seconds
+    
+    // Redirect to home after animation plays
     setTimeout(() => {
         window.location.href = "index.html";
     }, 6000);
