@@ -113,7 +113,7 @@ Check compatibility across Chrome, Firefox, and Edge.
 
 Images used are sourced from royalty-free platforms.
 
-#### Acknowledgements
+## Acknowledgements
 
 Inspired by modern e-commerce platforms such as Amazon and shoppee
 
