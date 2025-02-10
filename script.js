@@ -648,7 +648,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-<<<<<<< HEAD
 // Lottie Animation
 // Function to confirm checkout and show animation
 function confirmCheckout() {
@@ -681,9 +680,7 @@ function confirmCheckout() {
     }, 6000);
 }
 
-=======
 document.getElementById("clearButton").addEventListener("click", function () {
     localStorage.clear();
     alert("Local Storage Cleared!");
 });
->>>>>>> 4bd25d43d4d384b7469fabd2fd60f18f8037f1f3
