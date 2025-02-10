@@ -218,50 +218,112 @@ document.getElementById('uploadText').classList.remove('hidden');
 document.getElementById('removeImage').classList.add('hidden');
 }
 
-// SUBMIT NEW LISTING AND SAVE TO LOCAL STORAGE
-document.getElementById("listingForm")?.addEventListener("submit", function(event) {
-  event.preventDefault(); // Prevent page reload
+// // SUBMIT NEW LISTING AND SAVE TO LOCAL STORAGE
+// document.getElementById("listingForm")?.addEventListener("submit", function(event) {
+//   event.preventDefault(); // Prevent page reload
 
-  // Get user inputs
-  const name = document.getElementById("productName").value.trim();
-  const price = document.getElementById("productPrice").value.trim();
-  const description = document.getElementById("productDescription").value.trim();
-  const imageInput = document.getElementById("imageInput").files[0];
+//   // Get user inputs
+//   const name = document.getElementById("productName").value.trim();
+//   const price = document.getElementById("productPrice").value.trim();
+//   const description = document.getElementById("productDescription").value.trim();
+//   const imageInput = document.getElementById("imageInput").files[0];
 
-  if (!name || !price || !description || !imageInput) {
-      alert("Please fill in all fields and upload an image.");
-      return;
-  }
+//   if (!name || !price || !description || !imageInput) {
+//       alert("Please fill in all fields and upload an image.");
+//       return;
+//   }
 
-  // Read image as Base64
-  const reader = new FileReader();
-  reader.readAsDataURL(imageInput);
-  reader.onload = function () {
-      const imageUrl = reader.result;
+//   // Read image as Base64
+//   const reader = new FileReader();
+//   reader.readAsDataURL(imageInput);
+//   reader.onload = function () {
+//       const imageUrl = reader.result;
 
-      // Create a new product object
-      const newListing = {
-          name: name,
-          price: price,
-          description: description,
-          image: imageUrl
-      };
+//       // Create a new product object
+//       const newListing = {
+//           name: name,
+//           price: price,
+//           description: description,
+//           image: imageUrl
+//       };
 
-      // Get existing listings from localStorage or initialize an empty array
-      const listings = JSON.parse(localStorage.getItem("listings")) || [];
+//       // Get existing listings from localStorage or initialize an empty array
+//       const listings = JSON.parse(localStorage.getItem("listings")) || [];
       
-      // Add the new listing to the END
-      listings.push(newListing);
+//       // Add the new listing to the END
+//       listings.push(newListing);
 
-      // Save back to localStorage
-      localStorage.setItem("listings", JSON.stringify(listings));
+//       // Save back to localStorage
+//       localStorage.setItem("listings", JSON.stringify(listings));
 
-      // Redirect to index page so the new listing is appended at the bottom
-      setTimeout(() => {
-          window.location.href = "index.html";
-      }, 500);
-  };
+//       // Redirect to index page so the new listing is appended at the bottom
+//       setTimeout(() => {
+//           window.location.href = "index.html";
+//       }, 500);
+//   };
+// });
+// SUBMIT NEW LISTING AND SAVE TO DATABASE
+// SUBMIT NEW LISTING AND SAVE TO DATABASE
+document.getElementById("listingForm")?.addEventListener("submit", async function(event) {
+    event.preventDefault(); // Prevent page reload
+
+    // Get user inputs
+    const name = document.getElementById("productName").value.trim();
+    const price = parseFloat(document.getElementById("productPrice").value.trim()); // Convert price to number
+    const description = document.getElementById("productDescription").value.trim();
+    const imageInput = document.getElementById("imageInput").files[0]; // Get file from input
+
+    // Validate inputs
+    if (!name || !price || !description || !imageInput) {
+        alert("Please fill in all fields and upload an image.");
+        return;
+    }
+
+    // Generate correct image path (assume images are stored in '/images/' folder)
+    const imagePath = `./images/${imageInput.name}`;
+
+    // Create a new product object
+    const newListing = {
+        name: name,
+        price: price,
+        description: description,
+        image: imagePath // Store correct image path
+    };
+
+    try {
+        // Send new listing to RestDB
+        const response = await fetch("https://fedassg2-b98f.restdb.io/rest/items", {
+            method: "POST",
+            headers: {
+                "x-apikey": "67a82110600a70a125de5be7", // Your API Key
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newListing)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to save listing: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log("Listing added:", result);
+
+        // Show success message
+        alert("Successfully Added Listing!");
+
+        // Redirect to index page after a short delay
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 500);
+
+    } catch (error) {
+        console.error("Error saving listing:", error);
+        alert("Error saving listing. Please try again.");
+    }
 });
+
+
+
 
 // Load Listings on Page Load
 document.addEventListener("DOMContentLoaded", function () {
