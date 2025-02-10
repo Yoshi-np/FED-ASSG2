@@ -378,3 +378,70 @@ async function updatePurchaseHistory(purchases){
         console.error("Error updating purchase history:", error);
     }
 }
+
+async function uploadImage(file) {
+    if (!file) {
+        console.error("No file selected.");
+        return null;
+    }
+
+    const filename = file.name; // Extract filename
+    const imagePath = `./images/${filename}`; // Format path as required
+
+    console.log("Formatted Image Path:", imagePath);
+    
+    return imagePath; // Simply return the path (not actually uploading)
+}
+
+document.getElementById("feedback-form")?.addEventListener("submit", async function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const sellerName = document.getElementById("seller-name").value.trim();
+    const feedbackText = document.getElementById("feedback").value.trim();
+    const imageInput = document.getElementById("imageUpload").files[0]; // Get the selected file
+
+    if (!sellerName || !feedbackText || !imageInput) {
+        alert("Please fill in all fields and upload an image.");
+        return;
+    }
+
+    try {
+        const imagePath = await uploadImage(imageInput); // Get the image path
+
+        // Create the feedback object
+        const feedbackData = {
+            sellerusername: sellerName,
+            feedback: feedbackText,
+            image: imagePath // Store the formatted image path
+        };
+
+        console.log("Submitting Feedback:", feedbackData); // Debugging log
+
+        // Send feedback data to RestDB
+        const response = await fetch("https://fedassg2-b98f.restdb.io/rest/feedback", {
+            method: "POST",
+            headers: {
+                "x-apikey": "67a82110600a70a125de5be7",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(feedbackData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to submit feedback: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log("Feedback submitted:", result);
+        alert("Feedback submitted successfully!");
+
+        // Redirect to feedback page
+        window.location.href = "index.html";
+
+    } catch (error) {
+        console.error("Error submitting feedback:", error);
+        alert("Error submitting feedback. Please try again.");
+    }
+});
+
+
