@@ -287,89 +287,95 @@ document.addEventListener("DOMContentLoaded", function () {
 //   }
 // }
 
-// // Function to Display Cart Items in `cart.html` with Proper Layout
-// function displayCartItems() {
-//   const cartContainer = document.getElementById("cartContainer");
-//   const checkoutButtonContainer = document.getElementById("checkoutButtonContainer");
-//   const totalAmountElement = document.getElementById("totalAmount");
+// Function to Display Cart Items in `cart.html` with Proper Layout
+async function displayCartItems() {
+  const cartContainer = document.getElementById("cartContainer");
+  const checkoutButtonContainer = document.getElementById("checkoutButtonContainer");
+  const totalAmountElement = document.getElementById("totalAmount");
 
-//   if (!cartContainer) return;
+  if (!cartContainer) return;
+
+  let cart = await getUserCart();
+
 
 //   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-//   cartContainer.innerHTML = "";
+  cartContainer.innerHTML = "";
 
-//   let totalAmount = 0;
+  let totalAmount = 0;
 
-//   if (cart.length === 0) {
-//       cartContainer.innerHTML = "<p>Your cart is empty.</p>";
-//       checkoutButtonContainer.style.display = "none"; // Hide checkout if empty
-//   } else {
-//       cart.forEach(item => {
-//           totalAmount += parseFloat(item.price); // Sum up prices
+  if (cart.length === 0) {
+      cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+      checkoutButtonContainer.style.display = "none"; // Hide checkout if empty
+  } else {
+      cart.forEach(item => {
+          totalAmount += parseFloat(item.price); // Sum up prices
 
-//           const cartItemHTML = `
-//               <div class="row align-items-center mb-3 p-3 border rounded shadow-sm">
-//                   <div class="col-md-2 text-center">
-//                       <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" style="max-width: 100px;">
-//                   </div>
-//                   <div class="col-md-6">
-//                       <h5 class="mb-1">${item.name}</h5>
-//                       <p class="mb-1 text-muted">${item.description}</p>
-//                       <p class="mb-1 text-primary"><strong>$${item.price}</strong></p>
-//                   </div>
-//                   <div class="col-md-4 text-end">
-//                       <button class="btn btn-danger btn-sm remove-from-cart" data-name="${item.name}">Remove</button>
-//                   </div>
-//               </div>
-//           `;
-//           cartContainer.innerHTML += cartItemHTML;
-//       });
+          const cartItemHTML = `
+              <div class="row align-items-center mb-3 p-3 border rounded shadow-sm">
+                  <div class="col-md-2 text-center">
+                      <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" style="max-width: 100px;">
+                  </div>
+                  <div class="col-md-6">
+                      <h5 class="mb-1">${item.name}</h5>
+                      <p class="mb-1 text-muted">${item.description}</p>
+                      <p class="mb-1 text-primary"><strong>$${item.price}</strong></p>
+                  </div>
+                  <div class="col-md-4 text-end">
+                      <button class="btn btn-danger btn-sm remove-from-cart" data-id="${item.id}">Remove</button>
+                  </div>
+              </div>
+          `;
+          cartContainer.innerHTML += cartItemHTML;
+      });
 
-//       checkoutButtonContainer.style.display = "block"; // Show checkout button
-//   }
+      checkoutButtonContainer.style.display = "block"; // Show checkout button
+  }
 
-//   // Update total amount
-//   totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
+  // Update total amount
+  totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
 
-//   bindRemoveFromCartButtons();
-// }
+  bindRemoveFromCartButtons();
+}
 
-// // Re-run function on page load
-// document.addEventListener("DOMContentLoaded", function () {
-//   displayCartItems();
-// });
-
-
+// Re-run function on page load
+document.addEventListener("DOMContentLoaded", function () {
+  displayCartItems();
+});
 
 
-// // Function to Remove Item from Cart
-// function bindRemoveFromCartButtons() {
-//   document.querySelectorAll(".remove-from-cart").forEach(button => {
-//       button.addEventListener("click", function () {
-//           let cart = JSON.parse(localStorage.getItem("cart")) || [];
-//           const productName = this.getAttribute("data-name");
 
-//           // Remove the item from cart
-//           cart = cart.filter(item => item.name !== productName);
-//           localStorage.setItem("cart", JSON.stringify(cart));
 
-//           alert("Item removed from cart.");
-//           displayCartItems();
-//           updateCartCount();
-//       });
-//   });
-// }
+// Function to Remove Item from Cart
+function bindRemoveFromCartButtons() {
+  document.querySelectorAll(".remove-from-cart").forEach(button => {
+      button.addEventListener("click", async function () {
+        //   let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cart = await getUserCart();
+        const productid = this.getAttribute("data-id");
 
-// // Function to Handle Checkout and Redirect to `checkout.html`
-// function bindCheckoutButton() {
-//   const checkoutButton = document.getElementById("checkoutButton");
-//   if (checkoutButton) {
-//       checkoutButton.addEventListener("click", function () {
-//           // Redirect user to checkout page
-//           window.location.href = "checkout.html";
-//       });
-//   }
-// }
+        // Remove the item from cart
+        cart = cart.filter(item => item.id !== productid);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateUserCart(cart);
+
+
+        alert("Item removed from cart.");
+        displayCartItems();
+        updateCartCount();
+      });
+  });
+}
+
+// Function to Handle Checkout and Redirect to `checkout.html`
+function bindCheckoutButton() {
+  const checkoutButton = document.getElementById("checkoutButton");
+  if (checkoutButton) {
+      checkoutButton.addEventListener("click", function () {
+          // Redirect user to checkout page
+          window.location.href = "checkout.html";
+      });
+  }
+}
 
 // // Function to Update Cart Count in Navigation Bar
 // function updateCartCount() {
@@ -554,9 +560,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const checkoutButton = document.getElementById("checkoutButton");
     if (checkoutButton) {
         checkoutButton.addEventListener("click", function () {
-            const username = localStorage.getItem("username");
+            const user = localStorage.getItem("loggedInUser");
 
-            if (!username) {
+            if (!user) {
                 alert("Please sign in before proceeding to checkout.");
                 window.location.href = "sign-in.html";
             } else {
@@ -567,17 +573,60 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Function to clear cart after successful checkout
+// document.addEventListener("DOMContentLoaded", function () {
+//     const confirmCheckoutButton = document.querySelector(".btn-primary.btn-sm");
+//     if (confirmCheckoutButton) {
+//         confirmCheckoutButton.addEventListener("click", async function () {
+//             alert("Thank you for your purchase! Your order has been placed.");
+//             let cart = await getUserCart();
+//             purchases = cart;
+//             localStorage.removeItem("cart"); 
+//             cart = [];
+//             localStorage.setItem("cart", JSON.stringify(cart));
+//             alert(JSON.stringify(purchases));
+//             updatePurchaseHistory(purchases);
+//             updateUserCart(cart);
+//             updateCartCount();
+//             window.location.href = "index.html"; // Redirect back to home
+//         });
+//     }
+// });
+
 document.addEventListener("DOMContentLoaded", function () {
     const confirmCheckoutButton = document.querySelector(".btn-primary.btn-sm");
+    
     if (confirmCheckoutButton) {
-        confirmCheckoutButton.addEventListener("click", function () {
+        confirmCheckoutButton.addEventListener("click", async function () {
             alert("Thank you for your purchase! Your order has been placed.");
-            localStorage.removeItem("cart"); // Clear the cart
-            updateCartCount();
-            window.location.href = "index.html"; // Redirect back to home
+            
+            let cart = await getUserCart(); // Fetch the current cart
+            let purchases = [...cart]; // Copy current cart items
+
+            if (purchases.length === 0) {
+                alert("Your cart is empty. Add items before checkout.");
+                return;
+            }
+
+            // Save purchase history before clearing cart
+            await updatePurchaseHistory(purchases);
+
+            // Clear cart from database
+            await updateUserCart([]); // Set cart to empty array in RestDB
+
+            // Clear localStorage cart
+            localStorage.removeItem("cart");
+
+            alert("Your cart has been cleared!");
+            updateCartCount(); // Update UI Cart Count
+
+            // Redirect back to home AFTER database update
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
         });
     }
 });
+
 
 
 document.addEventListener("DOMContentLoaded", function () {

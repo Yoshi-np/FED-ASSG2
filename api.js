@@ -1,11 +1,12 @@
-
+const API_URL = "https://fedassg2-b98f.restdb.io/rest"; 
+const API_KEY = "67a82110600a70a125de5be7"; 
   
-  document.addEventListener("DOMContentLoaded", async function () {
-    const API_URL = "https://fedassg2-b98f.restdb.io/rest/items"; 
-    const API_KEY = "67a82110600a70a125de5be7"; 
+document.addEventListener("DOMContentLoaded", async function () {
+    // const API_URL = "https://fedassg2-b98f.restdb.io/rest/items"; 
+    // const API_KEY = "67a82110600a70a125de5be7"; 
     async function fetchItems() {
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch(API_URL+"/items", {
                 method: "GET",
                 headers: {
                     "x-apikey": API_KEY,
@@ -79,7 +80,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 Email: email,
                 username: username,
                 Password: password,
-                Cart: []
+                cart: [],
+                purchasehistory: []
             };
 
             try {
@@ -141,8 +143,23 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             try {
-                console.log("Checking user credentials..."); // Debugging log
+                //delete
+                // console.log("Checking user credentials..."); // Debugging log
+                // const response = await fetch("https://fedassg2-b98f.restdb.io/rest/myuser/67a895d8bb50491a0001570a", {
+                //         method: "GET",
+                //         headers: {
+                //             "x-apikey": "67a82110600a70a125de5be7", // Replace with your actual RestDB API Key
+                //             "Content-Type": "application/json"
+                //         }
+                //     });
+                // const user = await response.json();
+                // console.log("User retrieved:", user); // Debugging log
+                // // Store user details in localStorage (to keep user logged in)
+                // localStorage.setItem("loggedInUser", JSON.stringify(user));
 
+                // // Redirect to homepage after login
+                // alert("Sign-in successful! Redirecting to homepage.");
+                // window.location.href = "index.html";
                 // Fetch all users from RestDB.io
                 const response = await fetch("https://fedassg2-b98f.restdb.io/rest/myuser", {
                     method: "GET",
@@ -187,13 +204,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to Fetch Logged-in User's Cart from RestDB.io
 async function getUserCart() {
-    const API_URL = "https://fedassg2-b98f.restdb.io/rest/myuser"; 
-    const API_KEY = "67a82110600a70a125de5be7"; 
+    // const API_URL = "https://fedassg2-b98f.restdb.io/rest/myuser"; 
+    // const API_KEY = "67a82110600a70a125de5be7"; 
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
     if (!user) return [];
 
     try {
-        const response = await fetch(`${API_URL}/${user._id}`, {
+        const response = await fetch(`${API_URL}/myuser/${user._id}`, {
             method: "GET",
             headers: {
                 "x-apikey": API_KEY,
@@ -218,9 +235,8 @@ async function updateUserCart(cart) {
         alert("You need to be signed in to add items to the cart.");
         return;
     }
-    alert(JSON.stringify(localStorage.getItem("loggedInUser")));
     try {
-        const response = await fetch(`${API_URL}/${user._id}`, {
+        const response = await fetch(`${API_URL}/myuser/${user._id}`, {
             method: "PATCH",
             headers: {
                 "x-apikey": API_KEY,
@@ -309,4 +325,56 @@ window.onload = async function () {
 // Redirects button "back to home" back to home
 function goHome() {
     window.location.href = "index.html"; // Redirects to the homepage
+}
+
+async function updatePurchaseHistory(purchases){
+
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!user) {
+        alert("You need to be signed in to purchase items.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/myuser/${user._id}`, {
+            method: "GET",
+            headers: {
+                "x-apikey": API_KEY,
+                "Content-Type": "application/json"
+            },
+        });
+        
+        if (!response.ok) throw new Error("Failed to update purchases");
+
+        const userData = await response.json();
+        console.log("User retrieved:", userData); // Debugging log
+
+        purchasehistory = userData.purchasehistory;
+
+
+
+    } catch (error) {
+        console.error("Error retrieving purchase history:", error);
+    }
+
+    //append purchases to purchase history
+    purchasehistory.push(purchases); // Add new item to cart array
+
+    try {
+        const response = await fetch(`${API_URL}/myuser/${user._id}`, {
+            method: "PATCH",
+            headers: {
+                "x-apikey": API_KEY,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({purchasehistory}) // Updating only the purchasehistory field
+        });
+
+        if (!response.ok) throw new Error("Failed to update purchases");
+
+        console.log("purchase history updated in RestDB:", await response.json());
+
+    } catch (error) {
+        console.error("Error updating purchase history:", error);
+    }
 }
