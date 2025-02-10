@@ -305,7 +305,7 @@ function displayCartItems() {
           const cartItemHTML = `
               <div class="row align-items-center mb-3 p-3 border rounded shadow-sm">
                   <div class="col-md-2 text-center">
-                      <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" style="max-width: 100px;">
+                      <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" style="max-width: 200px;">
                   </div>
                   <div class="col-md-6">
                       <h5 class="mb-1">${item.name}</h5>
@@ -593,3 +593,36 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+// Lottie Animation
+// Function to confirm checkout and show animation
+function confirmCheckout() {
+    // Hide checkout form
+    const checkoutContainer = document.querySelector(".card.p-4.shadow");
+    if (checkoutContainer) {
+        checkoutContainer.style.display = "none";
+    }
+
+    // Show success animation container
+    const animationContainer = document.getElementById("success-animation-container");
+    animationContainer.style.display = "block";
+
+    // Load Lottie animation dynamically
+    lottie.loadAnimation({
+        container: document.getElementById("lottie-animation"), // Div container
+        renderer: "svg",
+        loop: false, // Play once
+        autoplay: true,
+        path: "https://assets7.lottiefiles.com/packages/lf20_vg3c0wv4.json" // ✅ Replace with your Lottie JSON URL
+    });
+
+    // Clear cart
+    localStorage.removeItem("cart");
+    updateCartCount();
+
+    // Redirect to home after 3 seconds
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 6000);
+}
+
