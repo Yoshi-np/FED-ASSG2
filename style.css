@@ -722,3 +722,23 @@ button:hover {
     display: flex;
     flex-direction: column;
 }
+
+/* Style for the feedback textarea */
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background: #333; /* Darker input background */
+    color: white;
+    border: 2px solid #f5a623; /* Golden border */
+    border-radius: 5px;
+    outline: none;
+    resize: vertical; /* Allows resizing only vertically */
+    min-height: 120px; /* Adjust the default height */
+}
+
+/* Placeholder Styling */
+.form-group textarea::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
