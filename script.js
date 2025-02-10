@@ -23,29 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // Details
-// document.addEventListener("DOMContentLoaded", function () {
-//   const viewDetailButtons = document.querySelectorAll(".view-details");
 
-//   viewDetailButtons.forEach((button) => {
-//       button.addEventListener("click", function (event) {
-//           event.preventDefault(); // Prevent default link behavior
-
-//           // Retrieve product details from button attributes
-//           const productDetails = {
-//               name: button.getAttribute("data-name"),
-//               price: button.getAttribute("data-price"),
-//               image: button.getAttribute("data-image"),
-//               description: button.getAttribute("data-description") || "No description available."
-//           };
-
-//           // Store product details in localStorage
-//           localStorage.setItem("selectedProduct", JSON.stringify(productDetails));
-
-//           // Redirect to the product details page
-//           window.location.href = "details.html";
-//       });
-//   });
-// });
 // Wait for the page to fully load
 document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById("featuredItemsContainer"); // Parent container
@@ -78,22 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-//commented to fix addtocart
-// document.addEventListener("DOMContentLoaded", function () {
-//   const productDetails = JSON.parse(localStorage.getItem("selectedProduct"));
-
-//   if (productDetails) {
-
-//       document.getElementById("product-name").textContent = productDetails.name;
-//       document.getElementById("product-price").textContent = `$${productDetails.price}`;
-//       document.getElementById("product-image").src = productDetails.image;
-//       document.getElementById("product-description").textContent = productDetails.description;
-//     } else {
-//       // If no product is found, show a default message
-//       document.querySelector(".product-info").innerHTML = "<h2>Product not found</h2>";
-//   }
-// });
 
 // Listings
 // Function to Render Listings on Page Load
@@ -218,110 +180,6 @@ document.getElementById('uploadText').classList.remove('hidden');
 document.getElementById('removeImage').classList.add('hidden');
 }
 
-// // SUBMIT NEW LISTING AND SAVE TO LOCAL STORAGE
-// document.getElementById("listingForm")?.addEventListener("submit", function(event) {
-//   event.preventDefault(); // Prevent page reload
-
-//   // Get user inputs
-//   const name = document.getElementById("productName").value.trim();
-//   const price = document.getElementById("productPrice").value.trim();
-//   const description = document.getElementById("productDescription").value.trim();
-//   const imageInput = document.getElementById("imageInput").files[0];
-
-//   if (!name || !price || !description || !imageInput) {
-//       alert("Please fill in all fields and upload an image.");
-//       return;
-//   }
-
-//   // Read image as Base64
-//   const reader = new FileReader();
-//   reader.readAsDataURL(imageInput);
-//   reader.onload = function () {
-//       const imageUrl = reader.result;
-
-//       // Create a new product object
-//       const newListing = {
-//           name: name,
-//           price: price,
-//           description: description,
-//           image: imageUrl
-//       };
-
-//       // Get existing listings from localStorage or initialize an empty array
-//       const listings = JSON.parse(localStorage.getItem("listings")) || [];
-      
-//       // Add the new listing to the END
-//       listings.push(newListing);
-
-//       // Save back to localStorage
-//       localStorage.setItem("listings", JSON.stringify(listings));
-
-//       // Redirect to index page so the new listing is appended at the bottom
-//       setTimeout(() => {
-//           window.location.href = "index.html";
-//       }, 500);
-//   };
-// });
-// SUBMIT NEW LISTING AND SAVE TO DATABASE
-// SUBMIT NEW LISTING AND SAVE TO DATABASE
-// document.getElementById("listingForm")?.addEventListener("submit", async function(event) {
-//     event.preventDefault(); // Prevent page reload
-
-//     // Get user inputs
-//     const name = document.getElementById("productName").value.trim();
-//     const price = parseFloat(document.getElementById("productPrice").value.trim()); // Convert price to number
-//     const description = document.getElementById("productDescription").value.trim();
-//     const imageInput = document.getElementById("imageInput").files[0]; // Get file from input
-
-//     // Validate inputs
-//     if (!name || !price || !description || !imageInput) {
-//         alert("Please fill in all fields and upload an image.");
-//         return;
-//     }
-
-//     // Generate correct image path (assume images are stored in '/images/' folder)
-//     const imagePath = `./images/${imageInput.name}`;
-
-//     // Create a new product object
-//     const newListing = {
-//         name: name,
-//         price: price,
-//         description: description,
-//         image: imagePath // Store correct image path
-//     };
-
-//     try {
-//         // Send new listing to RestDB
-//         const response = await fetch("https://fedassg2-b98f.restdb.io/rest/items", {
-//             method: "POST",
-//             headers: {
-//                 "x-apikey": "67a82110600a70a125de5be7", // Your API Key
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify(newListing)
-//         });
-
-//         if (!response.ok) {
-//             throw new Error(`Failed to save listing: ${response.statusText}`);
-//         }
-
-//         const result = await response.json();
-//         console.log("Listing added:", result);
-
-//         // Show success message
-//         alert("Successfully Added Listing!");
-
-//         // Redirect to index page after a short delay
-//         setTimeout(() => {
-//             window.location.href = "index.html";
-//         }, 500);
-
-//     } catch (error) {
-//         console.error("Error saving listing:", error);
-//         alert("Error saving listing. Please try again.");
-//     }
-// });
-
 
 
 
@@ -331,74 +189,6 @@ document.addEventListener("DOMContentLoaded", function () {
   displayFeaturedListings();
 });
 
-// // Cart
-// // Function to Add Product to Cart
-// function addToCart(product) {
-//   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-//   // Check if product already exists in cart (based on name)
-//   let existingProduct = cart.find(item => item.name === product.name);
-  
-//   if (existingProduct) {
-//       alert("This item is already in the cart.");
-//   } else {
-//       cart.push(product);
-//       localStorage.setItem("cart", JSON.stringify(cart));
-//       alert("Item added to cart!");
-//       updateCartCount();
-//   }
-// }
-
-// Function to Display Cart Items in `cart.html` with Proper Layout
-// async function displayCartItems() {
-//   const cartContainer = document.getElementById("cartContainer");
-//   const checkoutButtonContainer = document.getElementById("checkoutButtonContainer");
-//   const totalAmountElement = document.getElementById("totalAmount");
-
-//   if (!cartContainer) return;
-
-//   let cart = await getUserCart();
-
-
-// //   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-//   cartContainer.innerHTML = "";
-
-//   let totalAmount = 0;
-
-//   if (cart.length === 0) {
-//       cartContainer.innerHTML = "<p>Your cart is empty.</p>";
-//       checkoutButtonContainer.style.display = "none"; // Hide checkout if empty
-//   } else {
-//       cart.forEach(item => {
-//           totalAmount += parseFloat(item.price); // Sum up prices
-
-//           const cartItemHTML = `
-//               <div class="row align-items-center mb-3 p-3 border rounded shadow-sm">
-//                   <div class="col-md-2 text-center">
-//                       <img src="${item.image}" class="img-fluid rounded" alt="${item.name}" style="max-width: 200px;">
-//                   </div>
-//                   <div class="col-md-6">
-//                       <h5 class="mb-1">${item.name}</h5>
-//                       <p class="mb-1 text-muted">${item.description}</p>
-//                       <p class="mb-1 text-primary"><strong>$${item.price}</strong></p>
-//                   </div>
-//                   <div class="col-md-4 text-end">
-//                       <button class="btn btn-danger btn-sm remove-from-cart" data-id="${item.id}">Remove</button>
-//                   </div>
-//               </div>
-//           `;
-//           cartContainer.innerHTML += cartItemHTML;
-//       });
-
-//       checkoutButtonContainer.style.display = "block"; // Show checkout button
-//   }
-
-//   // Update total amount
-//   totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
-
-//   bindRemoveFromCartButtons();
-// }
-
 // Re-run function on page load
 document.addEventListener("DOMContentLoaded", function () {
   displayCartItems();
@@ -406,27 +196,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-// // Function to Remove Item from Cart
-// function bindRemoveFromCartButtons() {
-//   document.querySelectorAll(".remove-from-cart").forEach(button => {
-//       button.addEventListener("click", async function () {
-//         //   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-//         let cart = await getUserCart();
-//         const productid = this.getAttribute("data-id");
-
-//         // Remove the item from cart
-//         cart = cart.filter(item => item.id !== productid);
-//         localStorage.setItem("cart", JSON.stringify(cart));
-//         updateUserCart(cart);
-
-
-//         alert("Item removed from cart.");
-//         displayCartItems();
-//         updateCartCount();
-//       });
-//   });
-// }
 
 // Function to Handle Checkout and Redirect to `checkout.html`
 function bindCheckoutButton() {
@@ -439,43 +208,6 @@ function bindCheckoutButton() {
   }
 }
 
-// // Function to Update Cart Count in Navigation Bar
-// function updateCartCount() {
-//   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-//   document.getElementById("cart-count").textContent = cart.length;
-// }
-
-// // Attach "Add to Cart" Button Click Event in `details.html`
-// document.addEventListener("DOMContentLoaded", function () {
-//   // Ensure Cart Count Updates Across Pages
-//   updateCartCount();
-
-//   // If we're on details.html, attach event to Add to Cart button
-//   const addToCartButton = document.querySelector(".btn-primary.btn-lg");
-//   if (addToCartButton) {
-//       addToCartButton.addEventListener("click", function () {
-//           const productDetails = JSON.parse(localStorage.getItem("selectedProduct"));
-//           if (productDetails) {
-//               addToCart(productDetails);
-//           }
-//       });
-//   }
-
-//   // Display Cart Items if on Cart Page
-//   displayCartItems();
-// });
-// // rediretcs button "back to home" back to home
-// function goHome() {
-//     window.location.href = "index.html"; // Redirects to the homepage
-// }
-
-// Clear local storage
-/*
-if (!sessionStorage.getItem("firstLoad")) {
-    localStorage.clear();  // Clear localStorage on first load
-    sessionStorage.setItem("firstLoad", "true"); // Set session flag
-}
-*/
 
 // Chats
 // Sample Chat Data
@@ -544,58 +276,6 @@ function sendMessage() {
 // Load Chats on Page Load
 document.addEventListener("DOMContentLoaded", loadChats);
 
-// // Sign in and Sign up
-// document.addEventListener("DOMContentLoaded", function () {
-//     // Sign Up Form Handling
-//     const signUpForm = document.querySelector("#signUpForm");
-//     if (signUpForm) {
-//         signUpForm.addEventListener("submit", function (event) {
-//             event.preventDefault(); // Prevent default form behavior
-
-//             // Get user input values
-//             const email = document.querySelector("#exampleInputEmail1").value;
-//             const username = document.querySelector("#exampleInputUsername1").value;
-//             const password = document.querySelector("#exampleInputPassword1").value;
-
-//             if (email && username && password) {
-//                 // Store user data in localStorage
-//                 localStorage.setItem("userEmail", email);
-//                 localStorage.setItem("username", username);
-//                 localStorage.setItem("userPassword", password);
-
-//                 alert("Sign Up successful! Redirecting to Home Page.");
-//                 signUpForm.submit(); // Allow the form to actually submit
-//                 window.location.href = "index.html"; // Redirect to Home
-//             } else {
-//                 alert("Please fill in all fields.");
-//             }
-//         });
-//     }
-
-//     // Sign In Form Handling
-//     const signInForm = document.querySelector("#signInForm");
-//     if (signInForm) {
-//         signInForm.addEventListener("submit", function (event) {
-//             event.preventDefault(); // Prevent default form behavior
-
-//             // Get user input values
-//             const email = document.querySelector("#exampleInputEmail1").value;
-//             const password = document.querySelector("#exampleInputPassword1").value;
-
-//             // Retrieve stored credentials
-//             const storedEmail = localStorage.getItem("userEmail");
-//             const storedPassword = localStorage.getItem("userPassword");
-
-//             if (email === storedEmail && password === storedPassword) {
-//                 alert("Sign In successful! Redirecting to Home Page.");
-//                 signInForm.submit(); // Allow the form to actually submit
-//                 window.location.href = "index.html"; // Redirect to Home
-//             } else {
-//                 alert("Invalid email or password. Please try again.");
-//             }
-//         });
-//     }
-// });
 document.addEventListener("DOMContentLoaded", function () {
     const username = localStorage.getItem("username");
     if (username) {
@@ -633,61 +313,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
-// Function to clear cart after successful checkout
-// document.addEventListener("DOMContentLoaded", function () {
-//     const confirmCheckoutButton = document.querySelector(".btn-primary.btn-sm");
-//     if (confirmCheckoutButton) {
-//         confirmCheckoutButton.addEventListener("click", async function () {
-//             alert("Thank you for your purchase! Your order has been placed.");
-//             let cart = await getUserCart();
-//             purchases = cart;
-//             localStorage.removeItem("cart"); 
-//             cart = [];
-//             localStorage.setItem("cart", JSON.stringify(cart));
-//             alert(JSON.stringify(purchases));
-//             updatePurchaseHistory(purchases);
-//             updateUserCart(cart);
-//             updateCartCount();
-//             window.location.href = "index.html"; // Redirect back to home
-//         });
-//     }
-// });
-
-// document.addEventListener("DOMContentLoaded", function () {
-//     const confirmCheckoutButton = document.querySelector(".btn-primary.btn-sm");
-    
-//     if (confirmCheckoutButton) {
-//         confirmCheckoutButton.addEventListener("click", async function () {
-//             alert("Thank you for your purchase! Your order has been placed.");
-            
-//             let cart = await getUserCart(); // Fetch the current cart
-//             let purchases = [...cart]; // Copy current cart items
-
-//             if (purchases.length === 0) {
-//                 alert("Your cart is empty. Add items before checkout.");
-//                 return;
-//             }
-
-//             // Save purchase history before clearing cart
-//             await updatePurchaseHistory(purchases);
-
-//             // Clear cart from database
-//             await updateUserCart([]); // Set cart to empty array in RestDB
-
-//             // Clear localStorage cart
-//             localStorage.removeItem("cart");
-
-//             alert("Your cart has been cleared!");
-//             updateCartCount(); // Update UI Cart Count
-
-//             // Redirect back to home AFTER database update
-//             setTimeout(() => {
-//                 window.location.href = "index.html";
-//             }, 1000);
-//         });
-//     }
-// });
 
 
 

@@ -2,8 +2,6 @@ const API_URL = "https://fedassg2-b98f.restdb.io/rest";
 const API_KEY = "67a82110600a70a125de5be7"; 
   
 document.addEventListener("DOMContentLoaded", async function () {
-    // const API_URL = "https://fedassg2-b98f.restdb.io/rest/items"; 
-    // const API_KEY = "67a82110600a70a125de5be7"; 
     async function fetchItems() {
         try {
             const response = await fetch(API_URL+"/items", {
@@ -143,24 +141,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             try {
-                //delete
-                // console.log("Checking user credentials..."); // Debugging log
-                // const response = await fetch("https://fedassg2-b98f.restdb.io/rest/myuser/67a895d8bb50491a0001570a", {
-                //         method: "GET",
-                //         headers: {
-                //             "x-apikey": "67a82110600a70a125de5be7", // Replace with your actual RestDB API Key
-                //             "Content-Type": "application/json"
-                //         }
-                //     });
-                // const user = await response.json();
-                // console.log("User retrieved:", user); // Debugging log
-                // // Store user details in localStorage (to keep user logged in)
-                // localStorage.setItem("loggedInUser", JSON.stringify(user));
-
-                // // Redirect to homepage after login
-                // alert("Sign-in successful! Redirecting to homepage.");
-                // window.location.href = "index.html";
-                // Fetch all users from RestDB.io
                 const response = await fetch("https://fedassg2-b98f.restdb.io/rest/myuser", {
                     method: "GET",
                     headers: {
@@ -204,8 +184,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to Fetch Logged-in User's Cart from RestDB.io
 async function getUserCart() {
-    // const API_URL = "https://fedassg2-b98f.restdb.io/rest/myuser"; 
-    // const API_KEY = "67a82110600a70a125de5be7"; 
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
     if (!user) return [];
 
@@ -512,8 +490,6 @@ async function displayCartItems() {
   
     let cart = await getUserCart();
   
-  
-  //   const cart = JSON.parse(localStorage.getItem("cart")) || [];
     cartContainer.innerHTML = "";
   
     let totalAmount = 0;
@@ -556,7 +532,6 @@ async function displayCartItems() {
 function bindRemoveFromCartButtons() {
     document.querySelectorAll(".remove-from-cart").forEach(button => {
         button.addEventListener("click", async function () {
-          //   let cart = JSON.parse(localStorage.getItem("cart")) || [];
           let cart = await getUserCart();
           const productid = this.getAttribute("data-id");
   
