@@ -106,14 +106,14 @@ Ensure proper display on mobile, tablet, and desktop screens.
 
 Check compatibility across Chrome, Firefox, and Edge.
 
-# Credits
+## Credits
 
 
-# Media
+## Media
 
 Images used are sourced from royalty-free platforms.
 
-# Acknowledgements
+#### Acknowledgements
 
 Inspired by modern e-commerce platforms such as Amazon and shoppee
 
