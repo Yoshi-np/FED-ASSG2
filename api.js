@@ -38,12 +38,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                             <h5 class="card-title">${item.name}</h5>
                             <p class="card-text">$${item.price}</p>
                             <a href="details.html" class="btn btn-primary view-details" 
-                               data-name="${item.name}" 
-                               data-price="${item.price}" 
-                               data-image="${item.image}" 
-                               data-description="${item.description}"
-                               data-id="${item._id}">
-                               View Details
+                                data-name="${item.name}" 
+                                data-price="${item.price}" 
+                                data-image="${item.image}" 
+                                data-description="${item.description}"
+                                data-id="${item._id}">
+                                View Details
                             </a>
                         </div>
                     </div>
